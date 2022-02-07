@@ -34,7 +34,6 @@ class Dictogram(dict):
         else:
             return 0
         
-
     def sample(self):
         items_values = 0
         """Return a word from this histogram, randomly sampled by weighting
