@@ -50,7 +50,7 @@ class Listogram(list):
         this histogram, or None if target word is not found."""
         for i in range(len(self)):
             if self[i][0] == target:
-                print(i)
+                return i
         return None
 
     def sample(self):
