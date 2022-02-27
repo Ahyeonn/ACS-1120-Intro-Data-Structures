@@ -103,6 +103,14 @@ class LinkedList:
         if current_node.data == item:
             return True
         return False
+    
+    def find_if_matches(self, matching_function):
+        node = self.head
+        while node:
+            if matching_function(node.data):
+                return node.data
+            node = node.next
+        return None
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
@@ -136,7 +144,13 @@ class LinkedList:
                 return
         raise ValueError(f'Item not found: {item}')
 
-
+    def replace_node(self, data):
+        node = self.head
+        while node: 
+            if node.data[0] == data[0]:
+                node.data = data
+                return
+            node = node.next
 
         
 
