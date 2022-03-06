@@ -19,7 +19,7 @@ def create_sentence(dicto, chain, n=3):
     next_words = dicto.sample()
     sentence = f'{next_words} '
 
-    for _ in range(n):
+    for count in range(n):
         markov_words = chain[next_words].sample()
         next_words = markov_words
         sentence += next_words + ' '
