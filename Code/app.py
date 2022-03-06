@@ -1,13 +1,14 @@
-"""Main script, uses other modules to generate sentences."""
-from flask import Flask, render_template
-from dictogram import Dictogram 
+from flask import Flask, render_template, request, redirect, url_for
+from dictogram import Dictogram
+from tokens import tokenize
+from twitter import TwitterBot
+from markov2 import markov, create_sentence
 
 app = Flask(__name__)
-
-histogram = None 
+bot = TwitterBot()
 
 def open_file(text_file):
-    file_words = [] # Convert it to list
+    file_words = []
     with open(text_file, 'r') as f:
         for line in f:
             for word in line.split(' '):
@@ -16,16 +17,21 @@ def open_file(text_file):
 
 @app.before_first_request
 def before_first_request():
-    word_list = open_file('book.txt')
-    histogram = Dictogram(word_list=word_list)
-    return histogram
+    tokened_word_list = tokenize()
+    histogram = Dictogram(tokened_word_list)
+    chain = markov(histogram, tokened_word_list)
+
+    return create_sentence(histogram, chain)
 
 @app.route("/")
 def home():
-    histogram = before_first_request()
-    random_word = histogram.sample()
-    return render_template('index.html', random_word = random_word)
+    sentence = before_first_request()
+    return render_template('index.html', sentence=sentence)
 
+@app.route("/tweet", methods=['POST'])
+def tweet():
+    bot.tweet(request.form['sentence'])
+    return redirect(url_for('home'))
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(port=5001, debug=True)
