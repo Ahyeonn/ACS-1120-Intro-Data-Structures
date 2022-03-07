@@ -1,9 +1,25 @@
 * {
-    height: 500px;
+    height:300px;
 }
 .random_word {
     font-size: 50px;
     display: flex;
     align-items: center;
+    justify-content: center;
+    background-color: rgb(255, 196, 0);
+    color: white;
+}
+
+.forbutton button {
+    display: flex;
+    align-items: center;
+    height:8%;
+    width: 6%;
+    justify-content: center;
+    background-color: white;    
+}
+
+.forbutton {
+    display: flex;
     justify-content: center;
 }

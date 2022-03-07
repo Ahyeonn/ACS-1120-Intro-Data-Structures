@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
     <p class="random_word">{{ sentence }}</p>
-    <form method="POST" action="/tweet">
+    <form method="POST" action="/tweet" class="forbutton">
         <input type="hidden" name="sentence" value="{{sentence}}">
-        <button type="submit">Tweet</button>
+        <button type="submit" name="Tweet" value="Tweet">TWEET</button>
     </form>
 {% endblock %}
